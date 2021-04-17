@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/admin.css" rel="stylesheet" />
+    <link href="~/Content/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/metisMenu.css" rel="stylesheet" />
+    <link href="~/Content/Style.css" rel="stylesheet" />
+    
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    @RenderSection("css", false)
+
+
+</head>
+<body>
+    <div id="wrapper">
+        @Html.Partial("_AdminHeaderViewPartial")
+        @RenderBody()
+    </div>   
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        var fileManagerPath = "@Url.Action("Index", "FileBrowser")";
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

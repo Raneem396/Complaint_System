@@ -1,0 +1,99 @@
+﻿@model PagedList.IPagedList<ComplaintManagementPortal2.Models.Complaint>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Complaints";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/AdminTheme/PagedList.css" rel="stylesheet" type="text/css" />
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Complaints
+            </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row operation-row">
+        <div class="col-lg-12 text-center">
+            @switch (Request.QueryString["result"])
+            {
+               
+
+                case "editdone":
+                    <div class="alert alert-success alert-dismissable">
+                        <p class="fa fa-check"> </p>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> Complaint Updated Successfully
+                    </div>
+                    break;
+
+             
+            }
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            @if (Model.Count() > 0)
+            {
+                <div class="table-responsive main-table">
+                    <table class="table table-hover1">
+                        <thead>
+                            <tr class="grid-header">
+                                <th style="width:10%">
+                                    @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                                </th>
+                                <th style="width:40%">
+                                    @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                                </th>
+                                <th style="width:20%">
+                                    @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                                </th>
+
+
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Edit", "Complaints", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Id)</a>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Complaints", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Name)</a>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Complaints", new { id = item.Id })">@Html.DisplayFor(modelItem => item.ComplaintsStatus.Name)</a>
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                    <br />
+                    <div>
+                        @if (@Model.PageCount > 1)
+                        {
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p class="text-warning text-center">There are no Complaints yet</p>
+
+            }
+
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->

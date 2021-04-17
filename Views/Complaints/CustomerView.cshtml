@@ -1,0 +1,175 @@
+﻿
+@model ComplaintManagementPortal2.Models.ComplaintAdminViewModel
+@using ComplaintManagementPortal2.Models
+@{
+    ViewBag.Title = "View Complaint";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">CustomerView</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row operation-row">
+        <div class="col-lg-12">
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index", "Dashboard")">Home</a></li>
+                <li><a href="@Url.Action("CustomerIndex", "Complaints")">CustomerView</a></li>
+                <li class="active">@Model.Complaint.Name</li>
+            </ul>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="text-in-info-large tooltip-enabled" style="padding-left:0px !important">
+
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group tooltip-enabled">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+
+
+                                <div class="col-lg-12">
+                                    The Complaint
+
+
+                                    <hr />
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <p class="text-in-info">
+                                            <span class="text-muted">
+                                                Name:
+                                            </span>
+                                            @Model.Complaint.Name
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <p class="text-in-info">
+                                            <span class="text-muted">
+                                                Age:
+                                            </span>
+                                            @Model.Complaint.Age
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <p class="text-in-info">
+                                            <span class="text-muted">
+                                                Gender:
+                                            </span>
+                                            @Model.Complaint.GenderType.Name
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <p class="text-in-info">
+                                            <span class="text-muted">
+                                                work:
+                                            </span>
+                                            @Model.Complaint.WorkType.Name
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <p class="text-in-info">
+                                            <span class="text-muted">
+                                                May we send you emails?
+                                            </span>
+                                            @Model.Complaint.SendmeEmails
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <p class="text-in-info">
+                                            <span class="text-muted">
+                                                Complaint:
+                                            </span>
+                                            @Model.Complaint.YourComplaint
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <p class="text-in-info">
+                                            <span class="text-muted">
+                                                Image:
+                                            </span>
+                                            @GetMainImage(Model.Complaint.MainImage)
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <p class="text-in-info">
+                                            <span class="text-muted">
+                                                Complaint Status:
+                                            </span>
+                                            @if (Model.Complaint.StatusId != 0 && Model.Complaint.StatusId != null)
+                                            {
+                                                @Model.Complaint.ComplaintsStatus.Name
+                                            }
+
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <hr />
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
+
+@helper GetMainImage(string image)
+{
+    if (image != null && image != "")
+    {
+        <img class="img-thumbnail" src="@Url.Content(GlobalConfig.ComplaintsFolder + image)" />
+    }
+    else
+    {
+        <img class="img-thumbnail" style="width:100%" src="~/Content/AdminTheme/images/default-main-page.jpg" />
+    }
+}
+

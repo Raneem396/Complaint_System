@@ -1,0 +1,106 @@
+﻿@using Microsoft.AspNet.Identity;
+@using ComplaintManagementPortal2.Models;
+@using ComplaintManagementPortal2.Controllers;
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" >Complaint System</a>
+    </div>
+    <!-- /.navbar-header -->
+
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-top-links navbar-right">
+          
+
+            <li class="admin-name-in-header">
+                @GetFullName()
+            </li>
+
+            <li class="dropdown account-menu">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li>
+                        <a href="@Url.Action("EditMyAccount", "Account")"><i class="fa fa-user fa-fw"></i> My Account</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+    }
+    <!-- /.navbar-top-links -->
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse collapse" aria-expanded="false">
+            <ul class="nav" id="side-menu">
+
+
+
+
+                @{
+                    if (User.IsInRole("Customer"))
+                    {
+                        <li>
+                            <a href="@Url.Action("CustomerIndex", "Complaints")" @GetClass("Complaints")><i class="fa fa-list fa-fw"></i> My Complaints</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("SendComplaint", "Complaints")" @GetClass("Complaints")><i class="fa fa-bullhorn fa-fw"></i> Submit a Complaint</a>
+                        </li>
+                    
+
+                    }
+
+                    if (User.IsInRole("Admin"))
+                    {
+
+                        <li>
+                            <a href="@Url.Action("Index", "Dashboard")" @GetClass("Dashboard")><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Complaints")" @GetClass("Complaints")><i class="fa fa-list fa-fw"></i> Complaints</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Account")" @GetClass("Account")><i class="fa fa-user fa-fw"></i> Administrators</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+</nav>
+
+
+@helper GetClass(string link)
+{
+    if (link == HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString())
+    {
+        @:class="active";
+    }
+}
+
+
+@helper GetFullName()
+{
+    if (Request.Cookies["fullname"] != null && Request.Cookies["fullname"].Value != "")
+    {
+        @Request.Cookies["fullname"].Value
+    }
+}

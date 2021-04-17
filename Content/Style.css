@@ -1,0 +1,9 @@
+﻿.login-form {
+    margin-top:10%;
+}
+
+
+.form-group input, select {
+    max-width: 100%;
+    margin-right: 5px;
+}
